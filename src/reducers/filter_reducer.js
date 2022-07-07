@@ -70,11 +70,44 @@ const filter_reducer = (state, action) => {
     let tempProducts = [...all_products];
 
     // filtering the products
+    // Filter by Text
     if (text) {
       tempProducts = tempProducts.filter((product) => {
         return product.name.toLowerCase().startsWith(text);
       });
     }
+
+    // Filter by Category
+    if (category !== "all") {
+      tempProducts = tempProducts.filter(
+        (product) => product.category === category
+      );
+    }
+
+    // Filter by Company
+    if (company !== "all") {
+      tempProducts = tempProducts.filter(
+        (product) => product.company === company
+      );
+    }
+
+    // Filter by Colors
+    if (color !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.color.find((c) => c.name === color);
+      });
+    }
+
+    // Filter by Price
+    tempProducts = tempProducts.filter((product) => product.price <= price);
+
+    // Filter by Shipping
+    if (shipping) {
+      tempProducts = tempProducts.filter(
+        (product) => product.shipping === true
+      );
+    }
+
     return { ...state, filtered_products: tempProducts };
   }
 
