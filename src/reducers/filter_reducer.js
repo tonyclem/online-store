@@ -22,18 +22,22 @@ const filter_reducer = (state, action) => {
     };
   }
 
+  // display grid-template -columns when is true
   if (action.type === SET_GRIDVIEW) {
     return { ...state, grid_view: true };
   }
 
+  // display grid-template list columns when it false
   if (action.type === SET_LISTVIEW) {
     return { ...state, grid_view: false };
   }
 
+  // update the sort products
   if (action.type === UPDATE_SORT) {
     return { ...state, sort: action.payload };
   }
 
+  // sort all products according to their filters
   if (action.type === SORT_PRODUCTS) {
     const { sort, filtered_products } = state;
     let tempProducts = [...filtered_products];
@@ -52,16 +56,29 @@ const filter_reducer = (state, action) => {
     return { ...state, filtered_products: tempProducts };
   }
 
+  // update filters with name and value
   if (action.type === UPDATE_FILTERS) {
     const { name, value } = action.payload;
     return { ...state, filters: { ...state.filters, [name]: value } };
   }
 
+  // Filter the product according to user preferences
   if (action.type === FILTER_PRODUCTS) {
-    console.log("Filtering 61");
-    return { ...state };
+    const { all_products } = state;
+    const { text, category, company, color, price, shipping } = state.filters;
+
+    let tempProducts = [...all_products];
+
+    // filtering the products
+    if (text) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.name.toLowerCase().startsWith(text);
+      });
+    }
+    return { ...state, filtered_products: tempProducts };
   }
 
+  // clear all products
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
