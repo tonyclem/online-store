@@ -10,13 +10,13 @@ import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH_DOMAIN}
-      clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
-      redirectUri={window.location.origin}
-      cacheLocation="localstorage"
-    >
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
+    redirectUri={window.location.origin}
+    cacheLocation="localstorage"
+  >
+    <React.StrictMode>
       <UserProvider>
         <ProductsProvider>
           <FilterProvider>
@@ -26,6 +26,6 @@ root.render(
           </FilterProvider>
         </ProductsProvider>
       </UserProvider>
-    </Auth0Provider>
-  </React.StrictMode>
+    </React.StrictMode>
+  </Auth0Provider>
 );
